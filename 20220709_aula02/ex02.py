@@ -32,4 +32,28 @@ if __name__ == "__main__":
     # O método de string join() justa uma lista de itens em uma string, separando pelo caractere
     # definido
     string_randomica = ''.join(choices(f"{ascii_lowercase}{digits}", k=50))
-    print(string_randomica)
+    vogais = "aeiou"
+
+    print(f"String randômica: {string_randomica}")
+
+    lista_numeros = []
+    lista_letras = []
+    lista_vogais = []
+    lista_consoantes = []
+
+    for caractere in string_randomica:
+
+        if caractere.isdigit():
+            lista_numeros.append(int(caractere))
+        else:
+            lista_letras.append(caractere)
+            if caractere in vogais:
+                lista_vogais.append(caractere)
+            else:
+                lista_consoantes.append(caractere)
+
+    print(f"Lista de números: {lista_numeros}")
+    print(f"Soma dos números: {sum(lista_numeros)}")
+    print(f"Lista das letras: {lista_letras}")
+    print(f"Lista de vogais: {lista_vogais}")
+    print(f"Lista de consoantes: {lista_consoantes}")
