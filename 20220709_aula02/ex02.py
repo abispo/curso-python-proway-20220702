@@ -1,5 +1,5 @@
 """
-Exercícios 2
+Exercício 2
 
 Dada uma sequência randômica de letras e números, criar um programa
 que consiga diferenciar essas letras e números, com as regras a
@@ -24,5 +24,12 @@ seguir:
 
 """
 
+from random import choices
+from string import ascii_lowercase, digits
+
 if __name__ == "__main__":
-    pass
+
+    # O método de string join() justa uma lista de itens em uma string, separando pelo caractere
+    # definido
+    string_randomica = ''.join(choices(f"{ascii_lowercase}{digits}", k=50))
+    print(string_randomica)
