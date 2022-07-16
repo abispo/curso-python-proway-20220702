@@ -14,7 +14,24 @@ Devemos utilizar a sintaxe de duplo asterisco para passar os valores para a fun�
 
 
 def calculo_nota_final(n1, n2, n3, n4, n5, usar_todas_notas=False):
-    pass
+    # Por padrão, a lista de notas vai conter todas as notas
+    _lista_notas = [n1, n2, n3, n4, n5]
+
+    # Se o argumento usar_todas_notas for False, vamos ignorar a maior e menor nota, e fazer a média
+    # com as outras 3 notas restantes
+    if not usar_todas_notas:
+        print("Ignorar a maior e menor notas.")
+        # Ordena a lista de notas da menor nota pra maior nota
+        _lista_notas.sort()
+
+        # Fatiamos a lista, pegando as outras 3 notas intermediárias
+        _lista_notas = _lista_notas[1:4]
+
+    # sum() retorna a soma de todos os itens da sequência
+    # len() retorna a quantidade de itens na sequência
+    media = sum(_lista_notas) / len(_lista_notas)
+
+    return media
 
 
 if __name__ == '__main__':
@@ -25,3 +42,6 @@ if __name__ == '__main__':
         {"n1": 9.5, "n2": 9, "n3": 9, "n4": 9.5, "n5": 8},
         {"n1": 9, "n2": 8, "n3": 9, "n4": 9.5, "n5": 8},
     ]
+
+    for notas in lista_notas:
+        print(f"Média: {calculo_nota_final(**notas):.2f}")
