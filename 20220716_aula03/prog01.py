@@ -44,6 +44,18 @@ def mostrar_info(**kwargs):
         print(f"{key} = {value}")
 
 
+# Como uma função é um bloco de código, podemos chamar outras funções dentro da função, ou até mesmo
+# definir funções dentro de funções
+def chama():
+
+    # Essa função só poderá ser acessada dentro da função chama
+    def chama_interna():
+        return "Função interna"
+
+    print(hello())
+    print(chama_interna())
+
+
 if __name__ == '__main__':
 
     print(hello())
@@ -90,3 +102,30 @@ if __name__ == '__main__':
     # **kwargs
     mostrar_info(nome="Amanda", idade=18)
     mostrar_info(nome="Estela", idade=29, sexo="F", estado="RJ")
+
+    """
+    Em uma função, podemos ter sem problemas argumentos obrigatórios, opcionais e arbitrários. Porém
+    , deve ser seguida uma ordem, que é: Primeiro os argumentos obrigatórios, depois os opcionais, e por
+    fim os arbitrários, exemplo:
+    
+    def func(arg1, arg2, arg3=value, *args, **kwargs):
+        pass
+    """
+
+    chama()
+
+    # Função anônima: Como o próprio nome indica, são funções que não possuem nomes, apenas corpo.
+    # Criamos funções anônimas utilizando a palavra reservada lambda
+    # lambda retorna um objeto do tipo function, e não o seu valor
+
+    print(hello)
+    print(hello())
+
+    # Vamos criar uma função anônima que retorna um objeto function que, uma vez chamado, retorna
+    # um número elevado ao quadrado
+    # x é o argumento
+    elevar_ao_quadrado = lambda x: x ** 2
+    print(elevar_ao_quadrado)
+    print(elevar_ao_quadrado(2))
+
+    # Geralmente utilizamos o comando lambda como argumento das funções map(), filter() e reduce()
