@@ -11,6 +11,7 @@ Utilizamos a palavra reservada 'def' para criar uma função. O corpo de uma fun
 
 """
 
+CONST = 1
 
 # Uma função em Python pode ter apenas o seu corpo, sem receber nenhum argumento
 def hello():
