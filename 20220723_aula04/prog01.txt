@@ -1,0 +1,7 @@
+Curso de Python 2022
+
+Fundamentos
+Banco de dados
+Programação WEB
+
+Esse curso foi iniciado em 02/07/2022.
