@@ -58,6 +58,28 @@ class PagamentoPorCartaoDeCredito(Pagamento):
     Os dados de entrada da classe são: Valor a ser pago, agência e número da conta corrente
     """
 
+class PagamentoPorPIX(Pagamento):
+
+    def __init__(self, valor, agencia, conta_corrente):
+        super().__init__(valor)
+        self._agencia = agencia
+        self._conta_corrente = conta_corrente
+
+    def _ha_saldo_disponivel(self):
+        return bool(randint(0, 1))
+
+    def pagar(self):
+        if self._ha_saldo_disponivel():
+            texto = f"""
+            Dados de pagamento via PIX:
+            Valor: {self._valor}
+            Agência: {self._agencia}
+            Conta Corrente: {self._conta_corrente}
+            """
+
+            print(texto)
+        else:
+            print("SEM SALDO DISPONÍVEL")
 
 if __name__ == "__main__":
     pagamento_por_boleto = PagamentoPorBoleto(100)
@@ -65,3 +87,6 @@ if __name__ == "__main__":
 
     pagamento_por_cartao_de_credito = PagamentoPorCartaoDeCredito(100, "123456", "123")
     pagamento_por_cartao_de_credito.pagar()
+
+    pagamento_por_pix = PagamentoPorPIX(100, "4567", "233567")
+    pagamento_por_pix.pagar()
