@@ -16,11 +16,26 @@ if __name__ == "__main__":
 
     # Para tratar exceções, utilizamos o bloco try...except
 
+    # O comando try captura uma exceção dentro do bloco de código
     try:
         # Tentando abrir um arquivo que não existe
+
+        # O comando assert faz uma comparação entre 2 expressões, lançando uma exceção caso essa comparação
+        # retorne False
+        assert 1 == 0
+
         open("teste.txt")
 
-    except FileNotFoundError:
-        print("Esse arquivo não existe!")
+    # O except captura essa exceção que foi identificada dentro do bloco try, possibilitando ao dev
+    # tratá-la
+    # No caso abaixo, se a exceção capturada for do tipo FileNotFoundError, uma mensagem é mostrada
+    # except (FileNotFoundError):
+    #     print("Esse arquivo não existe!")
+
+    # except AssertionError:
+    #     print("Essa comparação é inválida")
+
+    except Exception:
+        print("Erro!")
 
     print("Arquivo finalizado com sucesso")
