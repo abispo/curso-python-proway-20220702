@@ -1,0 +1,96 @@
+
+BANCO DE DADOS COM PYTHON
+
+  - Vamos trabalhar com banco de dados no Python de 2 maneiras:
+    - Utilizando diretamente os comandos SQL no nosso código (através de conectores). Utilizando connection e cursor.
+    - Utilizando o SQLAlchemy, é que um ORM (Object Relational Mapper/Mapeador Objeto-Relacional) escrito em Python.
+
+Formas normais (1FN, 2FN, 3FN)
+Cardinalidade (1:1, 1:N, N:N)
+
+Sistema de blog
+ - Tabela de contas de usuário
+ - Tabela de perfis de usuário
+ - Tabela para postagens de usuários
+ - Tabela para comentários de postagens
+ - Tabela para cadastro de categorias (ou hashtags) de postagens
+
+- Um usuário pode ter apenas 1 perfil, e 1 perfil corresponde apenas a 1 usuário
+  - Em nível de tabela, dizemos que uma linha na tb_usuarios deve ter apenas 1 linha correspondente na tb_perfis.
+  - Esse nível de relacionamento entre as tabelas, chamamos de relacionamento 1 para 1 (1:1)
+
+- Um usuário pode fazer 0, 1 ou mais postagens
+- Uma postagem pode ter apenas 1 autor (usuário)
+
+Usuario   Postagem
+  1         N
+  1         1
+
+Usuario 1:N Postagem
+
+tb_usuarios
+1 jose
+2 maria
+3 carla
+
+tb_postagens
+id  user_id
+1   1         dsfjdskf
+2   2         dfsdkfdskl
+3   1         xjdskfdskf
+
+----
+
+- Uma postagem pode ter 0, 1 ou vários comentários
+- Um comentário estará associado a apenas 1 postagem
+- A tabela tb_comentarios deve armazenar
+  - id chave primária auto incremento
+  - deve ter um campo id_postagem, que é uma chave estrangeira para a tabela tb_postagens
+  - deve ter um campo id_usuario, que é uma chave estrangeira para a tabela tb_usuarios
+  - deve ter um campo texto, que é o texto do comentário em si
+
+Postagem    Comentário
+  1             N
+  1             1
+
+--------
+
+Quando uma postagem for criada, é possível associar a essa postagem algumas categorias (ou hashtags)
+Podemos também listar todos as postagens relacionadas a uma categoria
+
+
+Linguagem de programação Python
+#python #2022 #programacao
+
+Java é bom
+#java #programacao  #beans
+
+Categoria       Postagem
+    1               N
+    N               1
+
+A relação acima é de N:N (Muitos para muitos)
+Nesse caso, para ser possível implementar essa relação, vamos precisar criar uma
+tabela associativa (a tabela que fará a relação (associação) entre as 2 tabelas)
+
+tb_categoria
+id  nome
+1   programacao
+2   ti
+3   2022
+4   docker
+
+tb_postagens
+id  id_usuario  titulo      texto
+1   1           python      python e legal
+2   1           java        java e legal
+3   2           golang      golang e rapida
+4   2           docker      docker e uma mao na roda
+
+tb_postagens_categorias
+id_categoria    id_postagem
+1               1
+1               2
+1               3
+4               4
+3               1
