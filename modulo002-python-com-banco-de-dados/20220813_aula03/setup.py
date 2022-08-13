@@ -1,5 +1,5 @@
 from database import engine, Base, session
-from models import User, UserProfile
+from models import User, UserProfile, Post
 
 if __name__ == "__main__":
 
@@ -19,9 +19,15 @@ if __name__ == "__main__":
         {"first_name": "Carla", "last_name": "da Silva", "email": "carla@email.com", "password": "123456"},
     ]
 
+    posts = [
+        {"user_id": 1, "title": "A linguagem Python", "content": "Python é muito legal."},
+        {"user_id": 1, "title": "A linguagem C++", "content": "C++ é muito poderoso."},
+        {"user_id": 2, "title": "Docker", "content": "Docker é uma mão na roda."},
+    ]
+
     # Só iremos inserir os dados se não houverem registros na tabela tb_users
     if len(result) == 0:
-        for user_info in users:
+        for index, user_info in enumerate(users):
 
             # Instanciamos a classe User passando os valores para os campos dessa classe
             user = User(email=user_info.get("email"), password=user_info.get("password"))
@@ -40,6 +46,21 @@ if __name__ == "__main__":
 
             session.add(user_profile)
             session.commit()
+
+            for post_data in posts:
+                if post_data.get("user_id") == user.id:
+                    post = Post(
+                        title=post_data.get("title"),
+                        content=post_data.get("content")
+                    )
+
+                    # Adicionando o objeto Post à lista de posts da model User
+                    user.posts.append(post)
+
+                    # O objeto do tipo Post está sendo salvo na tabela de maneira indireta, pois ele foi adicionado
+                    # a lista de posts do objeto user que faz referência a model Post
+                    session.add(user)
+                    session.commit()
 
     elif len(result) > 0:
         users = session.query(User).all()

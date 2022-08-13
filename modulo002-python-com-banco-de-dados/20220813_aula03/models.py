@@ -37,7 +37,7 @@ class User(Base):
     # que só irá existir na execução do código. Ele serve pra referenciar o objeto
     # que está relacionado
     profile = relationship("UserProfile", back_populates="user", uselist=False)
-    posts = relationship("Post", back_populated="user")
+    posts = relationship("Post", back_populates="user")
 
     def __repr__(self):
         return f"<User({self.id}, {self.email})>"
