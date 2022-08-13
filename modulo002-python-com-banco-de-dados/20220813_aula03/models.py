@@ -7,8 +7,15 @@ Nesse módulo ficarão todas as classes que serão mapeadas para tabelas no banc
 from database import Base
 
 # Importando as classes do SQLAlchemy que representam os tipos de dados da tabela
-from sqlalchemy import Column, Integer, String, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, Table
 from sqlalchemy.orm import relationship
+
+# Model associativa para a relação N:N entre as models Post e Tag
+posts_tags = Table(
+    "tb_posts_tags", Base.metadata,
+    Column("post_id", Integer, ForeignKey("tb_posts.id"), primary_key=True),
+    Column("tag_id", Integer, ForeignKey("tb_tags.id"), primary_key=True)
+)
 
 """
 O SQLAlchemy irá ler a estrutura dessa classe, e vai gerar um comando SQL CREATE TABLE, com
@@ -84,8 +91,21 @@ class Post(Base):
     content = Column(Text, nullable=False)
 
     user = relationship("User", back_populates="posts", uselist=False)
+    tags = relationship("Tag", back_populates="posts", secondary=posts_tags)
 
     def __repr__(self):
         return f"<Post({self.id}, {self.title})>"
 
     __str__ = __repr__
+
+
+class Tag(Base):
+
+    __tablename__ = "tb_tags"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(100), nullable=False)
+
+    # Como a relação é N:N, precisamos referenciar o objeto Table que servirá como tabela associativa
+    # Pra isso, utilizamos o argumento secondary
+    posts = relationship("Post", back_populates="tags", secondary=posts_tags)
