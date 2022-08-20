@@ -23,3 +23,9 @@ Vamos modelar a base de dados de um sistema simples de vendas.
    * order_date (DateTime, não pode ser nulo)
    * description (String, pode ser nulo)
    * O nome da tabela no banco deve ser tb_orders
+
+4) Criar a model OrderDetail, com os seguintes campos
+   * product_id (Integer, chave primária, chave estrangeira para a model Product)
+   * order_id (Integer, chave primária, chave estrangeira para a model Order)
+   * quantity (Float, nao pode ser nulo)
+   * description (String, pode ser nulo)
