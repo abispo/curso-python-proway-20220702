@@ -22,4 +22,4 @@ Vamos modelar a base de dados de um sistema simples de vendas.
    * user_id (Integer, chave estrangeira para a model User)
    * order_date (DateTime, não pode ser nulo)
    * description (String, pode ser nulo)
-
+   * O nome da tabela no banco deve ser tb_orders
