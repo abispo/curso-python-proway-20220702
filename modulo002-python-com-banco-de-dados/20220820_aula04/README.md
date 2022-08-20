@@ -29,3 +29,4 @@ Vamos modelar a base de dados de um sistema simples de vendas.
    * order_id (Integer, chave primária, chave estrangeira para a model Order)
    * quantity (Float, nao pode ser nulo)
    * description (String, pode ser nulo)
+   * O nome da tabela no banco deve ser tb_orders_details
