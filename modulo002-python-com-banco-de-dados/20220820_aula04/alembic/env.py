@@ -1,9 +1,12 @@
+import os
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+
+from dotenv import load_dotenv
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -26,6 +29,15 @@ target_metadata = Base.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+config = context.config
+
+section = config.config_ini_section
+config.set_section_option(section, "DATABASE_USER", os.getenv("DATABASE_USER"))
+config.set_section_option(section, "DATABASE_PASSWORD", os.getenv("DATABASE_PASSWORD"))
+config.set_section_option(section, "DATABASE_HOST", os.getenv("DATABASE_HOST"))
+config.set_section_option(section, "DATABASE_PORT", os.getenv("DATABASE_PORT"))
+config.set_section_option(section, "DATABASE_NAME", os.getenv("DATABASE_NAME"))
 
 
 def run_migrations_offline() -> None:
