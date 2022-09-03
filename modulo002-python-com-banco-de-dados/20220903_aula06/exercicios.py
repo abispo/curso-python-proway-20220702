@@ -20,3 +20,25 @@ def ex01(texto):
         return "".join(lista_letras)
 
     raise Exception("Você deve passar um tipo string para a função")
+
+
+def ex02(nome_pokemon):
+    """
+    Exercício 02
+
+    Essa função receberá um nome de pokemon, e vai consultas as informações do pokemon
+    Endereço da API: https://pokeapi.co/api/v2/pokemon/{nome_do_pokemon}
+
+    As informações que devem ser retornadas pela função são:
+    Experiência base (base_experience)
+    Altura (height)
+    ID (id)
+    Nome (name)
+    Peso (weight)
+
+    Essa função deve retornar um dicionário com essas informações
+
+    Deve-se criar um 2 testes unitários: 1 Onde a chamada é feita corretamente, outro onde o usuário passa um nome
+    de pokemon que não existe.
+    PS: As chamadas para a API devem ser mockadas
+    """
