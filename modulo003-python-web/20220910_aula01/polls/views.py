@@ -1,6 +1,6 @@
 
 from django.http import HttpResponse
-from django.shortcuts import render     # Função que vai renderizar o template
+from django.shortcuts import render, get_object_or_404     # Função que vai renderizar o template
 
 from polls.models import Question
 
@@ -27,7 +27,12 @@ def index(request):
 
 
 def detail(request, question_id):
-    return HttpResponse(f"Você está olhando os detalhes da pergunta {question_id}")
+    # Pegamos o id da pergunta que vem via URL, e carregamos essa pergunta do banco de dados
+    # A função get_object_or_404 verifica se o registro que está sendo consultado realmente existe na tabela.
+    # Se exister, ele retorna o objeto. Se não, ele retorna uma erro HTTP 404 (Not Found)
+    question = get_object_or_404(Question, pk=question_id)
+
+    return render(request, "polls/detail.html", context={"question": question})
 
 
 def results(request, question_id):
