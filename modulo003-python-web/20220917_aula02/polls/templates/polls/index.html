@@ -1,0 +1,15 @@
+
+{% if latest_question_list %}
+    <ul>
+        {% for question in latest_question_list %}
+        <!-- A função de template url carrega o caminho da rota a partir do nome que foi indicado (no caso abaixo, "detail").
+                Se na URL é esperado ser recebido algum argumento (padrão que começa com '<' e termina com '>', então
+                precisamos passar esse(s) argumento(s) após o nome da rota. No caso abaixo, como a rota detail recebe
+                via url um argumento chamado question_id, precisamos passar um valor pra esse argumento
+        -->
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Não existem perguntas cadastradas</p>
+{% endif %}
