@@ -32,7 +32,7 @@ será executado em produção.
 
 Para criar um novo pacote da aplicação, digitamos o comando:
 
-python manage.py startapp polls (polls é o nome da aplicação)
+    python manage.py startapp polls (polls é o nome da aplicação)
 
 Quando criamos um novo pacote dentro de django, ele cria uma pasta com a seguinte estrutura:
 
