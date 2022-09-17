@@ -65,3 +65,41 @@ Tudo que está entre as marcações `{% %}` e `{{ }}` são comandos que serão e
     {% if_latest_question_id %}
 verifica se a variável de template `latest_question_list` possui um valor. Se possuir, vai entrar no laço for abaixo
     Se não possuir, o template quando for renderizado (quando é carregado pela aplicação) vai exibir a mensagem "Não existem perguntas cadastradas"
+
+
+## Exercício
+
+Criar um novo pacote, que vai se chamar store. Nesse novo app, poderemos cadastrar listas e itens, e associar esses itens a essas listas que foram cadastradas
+
+Teremos 2 models:
+* A primeira model será a model `ItemsList`, que terá os seguintes campos:
+```
+    name: Nome da lista (CharField)
+    pub_date: Data de publicação da lista (DateTimeField)
+```
+
+* A Segunda model será a model Item, que terá os seguintes campos:
+```
+    item_list: ForeignKey para ItemsList
+    name: Nome do item (CharField)
+    price: Preço do item (FloatField)
+```
+
+* O cadastro dos objetos de ItemsList e Item, será feito no admin do Django 
+* O pacote terá 2 rotas:
+  * A rota `index`, onde serão mostradas todas as listas. 
+  * A rota `detail`, que será a rota de detalhe da lista
+    
+### Observações
+
+* Na rota `index`, cada item de `ItemsList` será  um link para o detalhe da ItemsList
+* Na página de detalhes da `ItemsList`, deve ser mostrado a lista de itens que fazem parte dessa `ItemsList`, e no final da página a soma dos valores desses itens.
+
+### Exemplo
+
+    Compras de domingo
+        - Picanha: 80
+        - Linguiça: 20
+        - Vinho: 10
+    ----------------------
+    Soma dos itens: 110
