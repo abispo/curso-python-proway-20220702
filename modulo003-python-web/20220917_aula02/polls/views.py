@@ -1,8 +1,9 @@
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404     # Função que vai renderizar o template
+from django.urls import reverse
 
-from polls.models import Question
+from polls.models import Question, Choice
 
 
 def index(request):
@@ -40,4 +41,17 @@ def results(request, question_id):
 
 
 def vote(request, question_id):
-    return HttpResponse(f"Você está votando na pergunta {question_id}")
+    question = get_object_or_404(Question, pk=question_id)
+
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        return render(request, "polls/detail.html", {
+            "question": question,
+            "error_message": "Você deve escolher uma opção válida!"
+        })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+
+    return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
