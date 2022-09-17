@@ -37,13 +37,15 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
-    return HttpResponse(f"Você está olhando os resultados da pergunta {question_id}")
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "polls/results.html", {"question": question})
 
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
 
     try:
+        # pk = primary key
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         return render(request, "polls/detail.html", {
