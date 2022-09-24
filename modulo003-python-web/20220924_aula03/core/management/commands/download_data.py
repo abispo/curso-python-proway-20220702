@@ -1,11 +1,26 @@
 from django.core.management.base import BaseCommand
+import os
+import requests
 
-"""
-    Sintaxe do comando: python manage.py download_data <ano>
-    <ano> é o ano dos dados do brasileirao (2003 -> 2021)
-    O arquivo deve ser salvo no diretório data como brasileirao-<ano>.json
+from django.conf import settings
 
-"""
 
 class Command(BaseCommand):
-    pass
+
+    def add_arguments(self, parser):
+        parser.add_argument("ano", nargs="+", type=str)
+
+    def handle(self, *args, **options):
+        ano = options["ano"].pop()
+        r = requests.get(
+            settings.DATASET_BRASILEIRAO.format(ano)
+        )
+
+        root_dir = os.getcwd()
+
+        # A função os.path.join concatena os caminhos que são informados, com isso não precisamos nos
+        # preocupar em montar corretamente o caminho do arquivo onde as informações serão salvas.
+        with open(os.path.join(root_dir, "data", f"brasileirao-{ano}.json"), mode="w", encoding="utf-8") as f:
+            f.write(r.text)
+
+        self.stdout.write("Arquivo salvo com sucesso")

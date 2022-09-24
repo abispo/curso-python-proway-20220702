@@ -7,5 +7,4 @@ if __name__ == "__main__":
 
     content = r.json()
 
-    print("Dados do terceiro jogo da 17ª rodada")
-    print(content.get("17")[2])
+    print(content)
