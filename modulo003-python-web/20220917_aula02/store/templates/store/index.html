@@ -1,0 +1,10 @@
+
+{% if all_items_list %}
+    <ul>
+        {% for items_list in all_items_list %}
+            <li><a href="{% url 'store:detail' items_list.id %}">{{ items_list }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h2>Não existem listas de items a serem exibidas.</h2>
+{% endif %}

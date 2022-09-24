@@ -1,0 +1,10 @@
+<h1>{{ items_list }}</h1>
+<hr><br>
+
+<ul>
+    {% for item in items_list.item_set.all %}
+        <li>Nome: <stron>{{ item.name }}</stron></li>
+        <li>Preço: <strong>{{ item.price }}</strong></li>
+        <hr>
+    {% endfor %}
+</ul>
