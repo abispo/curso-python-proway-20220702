@@ -2,7 +2,8 @@ from django.db import models
 
 
 class Round(models.Model):
-    id = models.BigIntegerField(primary_key=True, null=False)
+    round_number = models.IntegerField(null=True)
+    year = models.IntegerField(null=True)
     description = models.CharField(max_length=100, null=False)
 
     class Meta:
