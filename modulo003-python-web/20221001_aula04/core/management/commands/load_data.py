@@ -34,7 +34,7 @@ class Command(BaseCommand):
                     # Não não existir, ele cria o registro com esse ID e retorna o objeto
                     # _ serve pra receber o segundo valor da tupla. Usamos essa sintaxe quando queremos ignorar
                     # algum valor
-                    round_obj, _ = Round.objects.get_or_create(name=round_id, year=int(ano))
+                    round_obj, _ = Round.objects.get_or_create(round_number=round_id, year=int(ano))
 
                     # Salvamos um texto como descrição da rodada
                     round_obj.description = f"Rodada {round_id} de {ano}"
@@ -44,6 +44,9 @@ class Command(BaseCommand):
                     # file_content[round_key]
                     # Salvar informações sobre o clube
                     # Salvar informações sobre a partida
+
+                    for match in file_content[round_key]:
+
 
 
         except FileNotFoundError:
