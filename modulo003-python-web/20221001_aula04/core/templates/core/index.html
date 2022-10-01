@@ -1,0 +1,15 @@
+
+<h1>Dados do Brasileirão (2003 - 2021)</h1>
+<hr>
+
+{% if years %}
+    <ul>
+        {% for year in years %}
+            <li>
+                <a href="#">Dados de {{ year }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h2>Não existem dados a serem exibidos</h2>
+{% endif %}

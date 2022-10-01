@@ -6,6 +6,9 @@ class Round(models.Model):
     year = models.IntegerField(null=True)
     description = models.CharField(max_length=100, null=False)
 
+    def __str__(self):
+        return f"{self.year} ({self.round_number})"
+
     class Meta:
         db_table = "tb_rounds"
 
