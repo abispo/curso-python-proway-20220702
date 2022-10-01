@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Round, Match
 
@@ -20,7 +20,7 @@ def rounds_list(request, year):
 
 
 def round_detail(request, year, round_id):
-    round = Round.objects.get(pk=round_id)
+    round = get_object_or_404(Round, pk=round_id, year=year)
     all_matches = Match.objects.filter(round=round)
 
     return render(
