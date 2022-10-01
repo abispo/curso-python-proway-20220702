@@ -1,0 +1,10 @@
+<h1>Rodadas</h1>
+<hr>
+
+<ul>
+    {% for round in all_rounds %}
+    <li>
+        <a href="{% url 'core:round_detail' round.year round.id %}">{{ round.description }}</a>
+    </li>
+    {% endfor %}
+</ul>

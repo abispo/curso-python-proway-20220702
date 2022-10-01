@@ -1,0 +1,8 @@
+<h1>Jogos da {{ round.description }}</h1>
+<hr>
+
+<ul>
+    {% for match in all_matches %}
+        <li>{{ match.home_club }} {{ match.home_goals }} X {{ match.away_goals }} {{ match.away_club }}</li>
+    {% endfor %}
+</ul>

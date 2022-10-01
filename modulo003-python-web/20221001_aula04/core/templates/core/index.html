@@ -6,7 +6,7 @@
     <ul>
         {% for year in years %}
             <li>
-                <a href="#">Dados de {{ year }}</a>
+                <a href="{% url 'core:rounds_list' year %}">Dados de {{ year }}</a>
             </li>
         {% endfor %}
     </ul>
