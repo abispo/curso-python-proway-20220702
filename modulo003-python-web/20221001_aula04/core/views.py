@@ -5,14 +5,8 @@ from .models import Round
 
 def index(request):
 
-    all_rounds = Round.objects.values()
-
-    years = []
-
-    for round in all_rounds:
-        years.append(round.get("year"))
-
-    years = list(set(years))
+    all_rounds = Round.objects.values("year").distinct()
+    years = [year_info.get("year") for year_info in all_rounds]
     years.sort()
 
     return render(request, "core/index.html", {"years": years})
