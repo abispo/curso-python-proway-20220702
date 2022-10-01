@@ -40,6 +40,12 @@ class Command(BaseCommand):
                     round_obj.description = f"Rodada {round_id} de {ano}"
                     round_obj.save()
 
+                    # Iterar sobre a lista de jogos
+                    # file_content[round_key]
+                    # Salvar informações sobre o clube
+                    # Salvar informações sobre a partida
+
+
         except FileNotFoundError:
             self.stdout.write(f"O arquivo {filepath} não existe.")
             sys.exit(-1)
