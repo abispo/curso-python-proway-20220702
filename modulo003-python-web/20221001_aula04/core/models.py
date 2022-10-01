@@ -13,6 +13,9 @@ class Round(models.Model):
 class Club(models.Model):
     name = models.CharField(max_length=200, null=False)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = "tb_clubs"
 

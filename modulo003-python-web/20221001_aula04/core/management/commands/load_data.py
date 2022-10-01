@@ -47,7 +47,37 @@ class Command(BaseCommand):
 
                     for match in file_content[round_key]:
 
+                        home_club = match.get("clubs").get("home").upper().strip()
+                        away_club = match.get("clubs").get("away").upper().strip()
 
+                        home_club_obj, _ = Club.objects.get_or_create(name=home_club)
+                        away_club_obj, _ = Club.objects.get_or_create(name=away_club)
+
+                        match_hour = match.get("hour")
+
+                        if len(match_hour) != 5:
+                            match_hour = "00:00"
+
+                        match_date = match.get("date")
+
+                        match_date = match_date.split("/")
+                        match_date = f"{match_date[2]}-{match_date[1]}-{match_date[0]}"
+
+                        home_club_goals = match.get("goals").get("home")
+                        away_club_goals = match.get("goals").get("away")
+
+                        stadium = match.get("stadium").strip()
+
+                        Match.objects.get_or_create(
+                            round=round_obj,
+                            home_club=home_club_obj,
+                            away_club=away_club_obj,
+                            home_goals=home_club_goals,
+                            away_goals=away_club_goals,
+                            stadium=stadium,
+                            hour=match_hour,
+                            date=match_date
+                        )
 
         except FileNotFoundError:
             self.stdout.write(f"O arquivo {filepath} não existe.")
