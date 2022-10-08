@@ -9,6 +9,7 @@ class Genero(models.Model):
     # help_text é o texto que aparecerá no admin do Django
     nome = models.CharField(max_length=200, help_text="Informe um gênero literário (Ficção Científica, Terror, etc)")
 
+
     def __str__(self):
         return self.nome
 
@@ -23,6 +24,14 @@ class Livro(models.Model):
     sumario = models.TextField(max_length=100, help_text="Informe uma breve descrição do livro")
     isbn = models.CharField("ISBN", max_length=13, help_text="Informe o ISBN (13 caracteres)")
     genero = models.ManyToManyField(Genero, help_text="Informe um gênero para esse livro")
+
+    # Esse método será usado para mostrar o(s) gênero(s) associado(s) a esse livro
+    def mostrar_genero(self):
+        # Retorna uma string com a lista dos gêneros que estão associados a esse livro
+        return ', '.join([genero.nome for genero in self.genero.all()])
+
+    # 'short_description' será o nome da coluna onde esse(s) gênero(s) serão listados
+    mostrar_genero.short_description = "Gênero(s)"
 
     def __str__(self):
         return self.titulo
@@ -68,8 +77,8 @@ class Autor(models.Model):
 
     nome = models.CharField(max_length=50)
     sobrenome = models.CharField(max_length=100)
-    data_de_nascimento = models.DateField("\u2605", null=True, blank=True)
-    data_de_falecimento = models.DateField("\u271F", null=True, blank=True)
+    data_de_nascimento = models.DateField("Nascimento (\u2605)", null=True, blank=True)
+    data_de_falecimento = models.DateField("Falecimento (\u271F)", null=True, blank=True)
 
     def __str__(self):
         return f'{self.sobrenome}, {self.nome}'
