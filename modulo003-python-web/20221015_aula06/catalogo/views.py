@@ -30,6 +30,7 @@ def index(request):
 class LivroListView(generic.ListView):
     model = Livro
     context_object_name = "livro_list"
+    paginate_by = 10
 
     def get_queryset(self):
         return Livro.objects.order_by("-id").all()
