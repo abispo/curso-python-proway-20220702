@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Biblioteca</h1>
+    <p>Bem-vindo a página da biblioteca</p>
+    <em>Desenvolvido por Proway</em>
+    <p>A biblioteca possui os seguintes números</p>
+    <ul>
+        <li>Quantidade de livros: {{ qtd_livros }}</li>
+        <li>Quantidade de cópias: {{ qtd_copias }}</li>
+        <li>Quantidade de cópias disponíveis: {{ qtd_copias_disponiveis }}</li>
+        <li>Quantidade de autores: {{ qtd_autores }}</li>
+    </ul>
+{% endblock %}
