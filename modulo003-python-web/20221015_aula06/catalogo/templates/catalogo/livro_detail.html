@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Título: {{ livro.titulo }}</h1>
-    <p><strong>Autor: {{ livro.autor }}</strong></p>
+    <p><strong>Autor: <a href="{{ livro.autor.get_absolute_url }}">{{ livro.autor }}</a></strong></p>
     <p><strong>Sumário: {{ livro.sumario }}</strong></p>
     <p><strong>ISBN: {{ livro.isbn }}</strong></p>
     <p><strong>Gênero(s): {{ livro.genero.all|join:", " }}</strong></p>

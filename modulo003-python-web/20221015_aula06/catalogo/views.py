@@ -38,3 +38,12 @@ class LivroListView(generic.ListView):
 
 class LivroDetailView(generic.DetailView):
     model = Livro
+
+
+class AutorListView(generic.ListView):
+    model = Autor
+    context_object_name = "autor_list"
+
+
+class AutorDetailView(generic.DetailView):
+    model = Autor
