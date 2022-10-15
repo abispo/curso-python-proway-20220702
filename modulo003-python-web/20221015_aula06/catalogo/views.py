@@ -1,5 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import generic
 
 from .models import Livro, CopiaLivro, Autor
 
@@ -24,3 +24,11 @@ def index(request):
     }
 
     return render(request, 'catalogo/index.html', context=context)
+
+
+class LivroListView(generic.ListView):
+    model = Livro
+    context_object_name = "livro_list"
+
+    def get_queryset(self):
+        return Livro.objects.order_by("-id").all()

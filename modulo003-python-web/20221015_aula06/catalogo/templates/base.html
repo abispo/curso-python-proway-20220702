@@ -21,7 +21,7 @@
                 {% block sidebar %}
                     <ul class="sidebar-nav">
                         <li><a href="{% url 'catalogo:index' %}">Página principal</a></li>
-                        <li><a href="#">Todos os livros</a></li>
+                        <li><a href="{% url 'catalogo:lista-livros' %}">Todos os livros</a></li>
                         <li><a href="#">Todos os autores</a></li>
                     </ul>
                 {% endblock %}
