@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views import generic
+from datetime import datetime
 
 from .models import Livro, CopiaLivro, Autor
+
 
 # function-based view
 def index(request):
@@ -15,12 +17,20 @@ def index(request):
     ).count()
 
     qtd_autores = Autor.objects.count()
+    qtd_visitas = request.session.get("qtd_visitas", 0)
+
+    request.session['qtd_visitas'] = qtd_visitas + 1
+    request.session['ultimo_acesso'] = datetime.now().strftime(
+        "%d/%m/%Y %H:%M:%S"
+    )
 
     context = {
         'qtd_livros': qtd_livros,
         'qtd_copias': qtd_copias,
         'qtd_copias_disponiveis': qtd_copias_disponiveis,
-        'qtd_autores': qtd_autores
+        'qtd_autores': qtd_autores,
+        'qtd_visitas': qtd_visitas,
+        'ultimo_acesso': request.session.get('ultimo_acesso')
     }
 
     return render(request, 'catalogo/index.html', context=context)
