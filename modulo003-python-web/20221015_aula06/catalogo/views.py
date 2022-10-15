@@ -3,7 +3,7 @@ from django.views import generic
 
 from .models import Livro, CopiaLivro, Autor
 
-
+# function-based view
 def index(request):
 
     qtd_livros = Livro.objects.count()
@@ -26,9 +26,14 @@ def index(request):
     return render(request, 'catalogo/index.html', context=context)
 
 
+# class-based view
 class LivroListView(generic.ListView):
     model = Livro
     context_object_name = "livro_list"
 
     def get_queryset(self):
         return Livro.objects.order_by("-id").all()
+
+
+class LivroDetailView(generic.DetailView):
+    model = Livro

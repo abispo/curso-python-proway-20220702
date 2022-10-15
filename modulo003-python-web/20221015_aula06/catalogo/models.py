@@ -37,7 +37,7 @@ class Livro(models.Model):
         return self.titulo
 
     def get_absolute_url(self):
-        return reverse('detalhe-livro', args=[str(self.id)])
+        return reverse('catalogo:detalhe-livro', args=[str(self.id)])
 
     class Meta:
         db_table = 'tb_livros'
@@ -84,7 +84,7 @@ class Autor(models.Model):
         return f'{self.sobrenome}, {self.nome}'
 
     def get_absolute_url(self):
-        return reverse('detalhe-autor', args=[str(self.id)])
+        return reverse('catalogo:detalhe-autor', args=[str(self.id)])
 
     class Meta:
         ordering = ['sobrenome', 'nome']
