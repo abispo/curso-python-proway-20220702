@@ -27,6 +27,7 @@
                         <hr>
                         {% if user.is_authenticated %}
                             <li>Usuário: {{ user.get_username }}</li>
+                            <li><a href="{% url 'catalogo:meus-emprestimos' %}">Meus empréstimos</a></li>
                             <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
                         {% else %}
                             <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
