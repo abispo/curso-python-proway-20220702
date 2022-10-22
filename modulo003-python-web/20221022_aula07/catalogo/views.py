@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 from datetime import datetime
@@ -57,3 +58,21 @@ class AutorListView(generic.ListView):
 
 class AutorDetailView(generic.DetailView):
     model = Autor
+
+
+# Apenas usuário logados podem acessar essa view, por causa do mixin LoginRequiredMixin
+class CopiasEmprestadasPorUsuarioListView(LoginRequiredMixin, generic.ListView):
+    model = CopiaLivro
+    template_name = 'catalogo/copias_emprestadas_por_usuario.html'
+    paginate_by = 10
+
+    # O método get_queryset é chamado quando os dados serão carregados do banco de dados
+    # Por padrão, ele trás todos os registros, sem nenhum filtro
+    def get_queryset(self):
+
+        lista_copias = CopiaLivro.objects.filter(
+            emprestado_para=self.request.user,
+            status__exact='e'
+        ).order_by('devolucao')
+
+        return lista_copias

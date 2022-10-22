@@ -1,5 +1,7 @@
+from datetime import date
 import uuid
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -8,7 +10,6 @@ class Genero(models.Model):
 
     # help_text é o texto que aparecerá no admin do Django
     nome = models.CharField(max_length=200, help_text="Informe um gênero literário (Ficção Científica, Terror, etc)")
-
 
     def __str__(self):
         return self.nome
@@ -49,6 +50,7 @@ class CopiaLivro(models.Model):
     livro = models.ForeignKey(Livro, on_delete=models.RESTRICT, null=True)
     impressao = models.CharField(max_length=200)
     devolucao = models.DateField(null=True, blank=True)
+    emprestado_para = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     STATUS_COPIA = (
         ('m', 'Manutenção'),
@@ -71,6 +73,10 @@ class CopiaLivro(models.Model):
     class Meta:
         db_table = 'tb_copias'
         ordering = ['devolucao']
+
+    @property
+    def emprestimo_vencido(self):
+        return bool(self.devolucao and date.today() > self.devolucao)
 
 
 class Autor(models.Model):

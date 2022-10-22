@@ -9,7 +9,17 @@ class AutorAdmin(admin.ModelAdmin):
 
 
 class CopiaLivroAdmin(admin.ModelAdmin):
+    list_display = ("livro", "status", "emprestado_para", "devolucao", "id")
     list_filter = ('status', 'devolucao')
+
+    fieldsets = (
+        (None, {
+            'fields': ('livro', 'impressao', 'id')
+        }),
+        ('Disponibilidade', {
+            'fields': ('status', 'devolucao', 'emprestado_para'),
+        })
+    )
 
 
 class CopiaLivroInline(admin.TabularInline):
