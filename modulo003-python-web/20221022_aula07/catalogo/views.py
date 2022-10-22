@@ -76,3 +76,19 @@ class CopiasEmprestadasPorUsuarioListView(LoginRequiredMixin, generic.ListView):
         ).order_by('devolucao')
 
         return lista_copias
+
+
+class TodasAsCopiasEmprestadasListView(LoginRequiredMixin, generic.ListView):
+    model = CopiaLivro
+    template_name = 'catalogo/todas_as_copias_emprestadas.html'
+    paginate_by = 10
+
+    # O método get_queryset é chamado quando os dados serão carregados do banco de dados
+    # Por padrão, ele trás todos os registros, sem nenhum filtro
+    def get_queryset(self):
+
+        lista_copias = CopiaLivro.objects.filter(
+            status__exact='e'
+        ).order_by('devolucao')
+
+        return lista_copias

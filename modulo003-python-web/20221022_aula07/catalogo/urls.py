@@ -9,5 +9,6 @@ urlpatterns = [
     path("livros/<int:pk>/", views.LivroDetailView.as_view(), name="detalhe-livro"),
     path("autores/", views.AutorListView.as_view(), name="lista-autores"),
     path("autores/<int:pk>/", views.AutorDetailView.as_view(), name="detalhe-autor"),
-    path("meus-emprestimos/", views.CopiasEmprestadasPorUsuarioListView.as_view(), name="meus-emprestimos")
+    path("meus-emprestimos/", views.CopiasEmprestadasPorUsuarioListView.as_view(), name="meus-emprestimos"),
+    path("todos-os-emprestimos/", views.TodasAsCopiasEmprestadasListView.as_view(), name="todas-as-copias-emprestadas")
 ]
