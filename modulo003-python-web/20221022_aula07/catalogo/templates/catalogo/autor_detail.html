@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ autor.nome }} {{ autor.sobrenome }}</h1>
+    <hr>
+    <p><strong>Data de nascimento: {% if autor.data_de_nascimento %}{{ autor.data_de_nascimento|date:"d/m/Y" }} {% else %}?{% endif %}</strong></p>
+    <p><strong>Data de falecimento: {% if autor.data_de_falecimento %}{{ autor.data_de_falecimento|date:"d/m/Y" }} {% else %}?{% endif %}</strong></p>
+
+    <hr>
+    <div style="margin-left: 20px; margin-top: 20px;">
+    <h3>Livros</h3>
+        {% if autor.livro_set.all %}
+            <ul>
+                {% for livro in autor.livro_set.all %}
+                <li>
+                    <a href="{{ livro.get_absolute_url }}">{{ livro }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não existem livros desse autor cadastrados na biblioteca</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Lista dos livros</h1>
+    {% if livro_list %}
+        <ul>
+            {% for livro in livro_list %}
+                <li><a href="{{ livro.get_absolute_url }}">{{ livro.titulo }}</a> ({{ livro.autor }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Não existem livros a serem exibidos.</p>
+    {% endif %}
+{% endblock %}
