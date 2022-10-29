@@ -67,12 +67,12 @@ def renovar_data_devolucao_livro(request, pk):
         nova_data_proposta = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenovarDevolucaoLivro(initial={"nova_data_de_devolucao": nova_data_proposta})
 
-        context = {
-            "form": form,
-            "copia": copia
-        }
+    context = {
+        "form": form,
+        "copia": copia
+    }
 
-        return render(request, "catalogo/renovar_data_devolucao_livro.html", context)
+    return render(request, "catalogo/renovar_data_devolucao_livro.html", context)
 
 # class-based view
 class LivroListView(generic.ListView):

@@ -22,5 +22,8 @@ class RenovarDevolucaoLivro(forms.Form):
         if data > datetime.date.today() + datetime.timedelta(weeks=4):
             raise ValidationError(_("Data de renovação inválida - Maior do que 4 semanas"))
 
+        if data < datetime.date.today():
+            raise ValidationError(_("Data de renovação inválida - Menor que a data atual"))
+
         # Sempre lembrar de retornar o dado validado
         return data
