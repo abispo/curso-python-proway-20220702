@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Livros emprestados</h1>
+
+    {% if copialivro_list %}
+        <ul>
+            {% for copialivro in copialivro_list %}
+                <li class="{% if copialivro.emprestimo_vencido %}text-danger{% endif %}">
+                    <a href="{% url 'catalogo:detalhe-livro' copialivro.livro.pk %}">
+                        {{ copialivro.livro.titulo }}
+                    </a>
+                    (Devolução: {{ copialivro.devolucao|date:'d/m/Y' }})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você não possui empréstimos em aberto na biblioteca</p>
+    {% endif %}
+{% endblock %}
