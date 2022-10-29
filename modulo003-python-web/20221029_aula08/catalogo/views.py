@@ -1,9 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-# from django.contrib.auth.decorators import permission_required, login_required
-from django.shortcuts import render
+from django.contrib.auth.decorators import permission_required, login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views import generic
-from datetime import datetime
+from datetime import datetime, timedelta
 
+from .forms import RenovarDevolucaoLivro
 from .models import Livro, CopiaLivro, Autor
 
 
@@ -42,6 +45,34 @@ def index(request):
 
     return render(request, 'catalogo/index.html', context=context)
 
+
+@login_required
+@permission_required("catalogo.pode_marcar_copia_como_devolvida", raise_exception=True)
+def renovar_data_devolucao_livro(request, pk):
+
+    copia = get_object_or_404(CopiaLivro, pk=pk)
+
+    if request.method == "POST":
+        form = RenovarDevolucaoLivro(request.POST)
+
+        # o método is_valid() chama os validadores do form, tanto os padrões quanto os definidos pelo programador.
+        # Se nenhuma exceção for gerada, esse método retorna True
+        if form.is_valid():
+            copia.devolucao = form.cleaned_data["nova_data_de_devolucao"]
+            copia.save()
+
+            return HttpResponseRedirect(reverse("catalogo:todos-os-emprestimos"))
+
+    else:
+        nova_data_proposta = datetime.date().today() + timedelta(weeks=3)
+        form = RenovarDevolucaoLivro(initial={"nova_data_de_devolucao": nova_data_proposta})
+
+        context = {
+            "form": form,
+            "copia": copia
+        }
+
+        return render(request, "catalogo/renovar_data_devolucao_livro.html", context)
 
 # class-based view
 class LivroListView(generic.ListView):
