@@ -6,8 +6,19 @@
     <p><strong>Sumário: {{ livro.sumario }}</strong></p>
     <p><strong>ISBN: {{ livro.isbn }}</strong></p>
     <p><strong>Gênero(s): {{ livro.genero.all|join:", " }}</strong></p>
+    <hr>
 
     <div style="margin-left: 20px; margin-top: 20px;">
+        <h4>Comentários sobre o livro</h4>
+        <p><a href="{% url 'catalogo:comentar-livro' livro.id %} ">Fazer comentário</a></p>
+        {% if livro.opiniaousuariolivro_set.all %}
+            {% for comentario in livro.opiniaousuariolivro_set.all %}
+                <p>({{ comentario.nota }}) {{ comentario.comentario }} -- <i>{{ comentario.usuario }}</i></p>
+            {% endfor %}
+        {% else %}
+            <p>Não existem comentários relacionados a esse livro</p>
+        {% endif %}
+        <hr>
         <h4>Cópias</h4>
         {% for copia in livro.copialivro_set.all %}
             <hr>

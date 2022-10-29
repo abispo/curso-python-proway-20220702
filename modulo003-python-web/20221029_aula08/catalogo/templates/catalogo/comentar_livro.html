@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Publicar um comentário sobre o livro '{{ livro.titulo }}'</h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>
+                    Comentário
+                </td>
+                <td>
+                    <textarea name="comentario" id="comentario" cols="50" rows="10"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="odiei">Odiei</label>
+                    <input type="radio" id="odiei" name="nota" value="1">
+
+                    <label for="nao_gostei">Não gostei</label>
+                    <input type="radio" id="nao_gostei" name="nota" value="2">
+
+                    <label for="neutro">Neutro</label>
+                    <input type="radio" id="neutro" name="nota" value="3">
+
+                    <label for="gostei">Gostei</label>
+                    <input type="radio" id="gostei" name="nota" value="4">
+
+                    <label for="amei">Amei</label>
+                    <input type="radio" id="amei" name="nota" value="5">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Salvar">
+    </form>
+
+{% endblock %}

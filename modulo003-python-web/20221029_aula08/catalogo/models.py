@@ -101,3 +101,32 @@ class Autor(models.Model):
 
     class Meta:
         ordering = ['sobrenome', 'nome']
+
+
+class OpiniaoUsuarioLivro(models.Model):
+    livro = models.ForeignKey(Livro, on_delete=models.SET_NULL, null=True, blank=True)
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    comentario = models.TextField()
+
+    NOTA_LIVRO = (
+        ("1", "Odiei"),
+        ("2", "Não gostei"),
+        ("3", "Neutro"),
+        ("4", "Gostei"),
+        ("5", "Amei")
+    )
+
+    nota = models.CharField(
+        max_length=1,
+        choices=NOTA_LIVRO,
+        blank=True,
+        default='3',
+        help_text="Nota do livro segundo o usuário"
+    )
+
+    def __str__(self):
+        return self.comentario
+
+    class Meta:
+        db_table = "opinioes_usuarios_livros"

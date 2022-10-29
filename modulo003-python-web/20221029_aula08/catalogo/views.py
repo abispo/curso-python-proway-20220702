@@ -7,7 +7,7 @@ from django.views import generic
 import datetime
 
 from .forms import RenovarDevolucaoLivro
-from .models import Livro, CopiaLivro, Autor
+from .models import Livro, CopiaLivro, Autor, OpiniaoUsuarioLivro
 
 
 # function-based view
@@ -73,6 +73,31 @@ def renovar_data_devolucao_livro(request, pk):
     }
 
     return render(request, "catalogo/renovar_data_devolucao_livro.html", context)
+
+
+@login_required
+def comentar_livro(request, pk):
+
+    livro = get_object_or_404(Livro, pk=pk)
+
+    if request.method == "POST":
+        data = request.POST
+        OpiniaoUsuarioLivro(
+            usuario=request.user,
+            livro=livro,
+            comentario=data.get("comentario"),
+            nota=data.get("nota")
+        ).save()
+
+        return HttpResponseRedirect(reverse("catalogo:detalhe-livro", args=(pk,)))
+
+    else:
+        context = {
+            "livro": livro
+        }
+
+        return render(request, "catalogo/comentar_livro.html", context)
+
 
 # class-based view
 class LivroListView(generic.ListView):

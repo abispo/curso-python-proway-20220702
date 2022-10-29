@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Genero, Livro, CopiaLivro, Autor
+from .models import Genero, Livro, CopiaLivro, Autor, OpiniaoUsuarioLivro
 
 
 class AutorAdmin(admin.ModelAdmin):
@@ -33,6 +33,7 @@ class LivroAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Genero)
+admin.site.register(OpiniaoUsuarioLivro)
 admin.site.register(Livro, LivroAdmin)
 admin.site.register(CopiaLivro, CopiaLivroAdmin)
 admin.site.register(Autor, AutorAdmin)
