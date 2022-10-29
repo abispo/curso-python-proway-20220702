@@ -1,4 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+# from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render
 from django.views import generic
 from datetime import datetime
@@ -7,6 +8,11 @@ from .models import Livro, CopiaLivro, Autor
 
 
 # function-based view
+# Caso queiramos usar permissões em function-based views, importamos o decorator permission_required
+# e aplicamos na function based view
+# O decorator login_required serve pra limitar o acesso à view apenas aos usuários logados
+# @login_required()
+# @permission_required("catalogo.pode_marcar_copia_como_devolvida")
 def index(request):
 
     qtd_livros = Livro.objects.count()
@@ -78,10 +84,11 @@ class CopiasEmprestadasPorUsuarioListView(LoginRequiredMixin, generic.ListView):
         return lista_copias
 
 
-class TodasAsCopiasEmprestadasListView(LoginRequiredMixin, generic.ListView):
+class TodasAsCopiasEmprestadasListView(PermissionRequiredMixin, generic.ListView):
     model = CopiaLivro
     template_name = 'catalogo/todas_as_copias_emprestadas.html'
     paginate_by = 10
+    permission_required = ("catalogo.pode_marcar_copia_como_devolvida",)
 
     # O método get_queryset é chamado quando os dados serão carregados do banco de dados
     # Por padrão, ele trás todos os registros, sem nenhum filtro

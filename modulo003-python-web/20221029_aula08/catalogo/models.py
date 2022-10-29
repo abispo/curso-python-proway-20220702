@@ -74,6 +74,13 @@ class CopiaLivro(models.Model):
         db_table = 'tb_copias'
         ordering = ['devolucao']
 
+        # O atributo permissions permite que criemos permissões personalizadas para a model. Esse campo
+        # deve ser uma tupla de tuplas
+        # O primeiro item da tupla deve ser o nome que será dado a ela, e o segundo é uma descrição.
+        # Após a a(s) permissão(ões) for criada, precisamos gerar uma migration e aplicá-la, para a
+        # permissão ser salva na tabela de permissões
+        permissions = (("pode_marcar_copia_como_devolvida", "Marca a cópia como devolvida"),)
+
     @property
     def emprestimo_vencido(self):
         return bool(self.devolucao and date.today() > self.devolucao)

@@ -11,6 +11,9 @@
                         {{ copialivro.livro.titulo }}
                     </a>
                     (Devolução: {{ copialivro.devolucao|date:'d/m/Y' }})
+                    {% if perms.catalogo.pode_marcar_copia_como_devolvida %}
+                        - <a href="#">Renovar</a>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
