@@ -13,6 +13,10 @@
                     </a>
                     - {{ copialivro.emprestado_para.get_username }}
                     (Devolução: {{ copialivro.devolucao|date:'d/m/Y' }})
+                    {% if perms.catalogo.pode_marcar_copia_como_devolvida %}
+                        - <a href="{% url 'catalogo:renovar-data-devolucao-livro' copialivro.id %}">Renovar</a>
+                    {% endif %}
+
                 </li>
             {% endfor %}
         </ul>

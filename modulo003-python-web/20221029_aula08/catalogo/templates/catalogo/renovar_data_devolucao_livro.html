@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Renovar: {{ copia.livro.titulo }}</h1>
+    <p>Emprestado para: {{ copia.emprestado_para }}</p>
+    <p {% if copia.emprestimo_vencido %}class="text-danger"{% endif %}>Data de devolução: {{ copia.devolucao|date:"d/m/Y" }} </p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Enviar">
+    </form>
+
+{% endblock %}

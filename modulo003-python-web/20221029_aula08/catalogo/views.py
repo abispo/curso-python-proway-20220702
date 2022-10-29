@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-from datetime import datetime, timedelta
+import datetime
 
 from .forms import RenovarDevolucaoLivro
 from .models import Livro, CopiaLivro, Autor
@@ -30,7 +30,7 @@ def index(request):
     qtd_visitas = request.session.get("qtd_visitas", 0)
 
     request.session['qtd_visitas'] = qtd_visitas + 1
-    request.session['ultimo_acesso'] = datetime.now().strftime(
+    request.session['ultimo_acesso'] = datetime.datetime.now().strftime(
         "%d/%m/%Y %H:%M:%S"
     )
 
@@ -61,10 +61,10 @@ def renovar_data_devolucao_livro(request, pk):
             copia.devolucao = form.cleaned_data["nova_data_de_devolucao"]
             copia.save()
 
-            return HttpResponseRedirect(reverse("catalogo:todos-os-emprestimos"))
+            return HttpResponseRedirect(reverse("catalogo:todas-as-copias-emprestadas"))
 
     else:
-        nova_data_proposta = datetime.date().today() + timedelta(weeks=3)
+        nova_data_proposta = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenovarDevolucaoLivro(initial={"nova_data_de_devolucao": nova_data_proposta})
 
         context = {
