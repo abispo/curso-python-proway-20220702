@@ -8,13 +8,14 @@
       </div>
     </div>
     <form action="" method="POST">
+      {% csrf_token %}
       <div class="mt-4">
         <label for="mensagem_titulo" class="form-label">Título</label>
         <input type="text" class="form-control" id="mensagem_titulo" name="mensagem_titulo">
       </div>
       <div class="mt-1">
-        <label for="mensagem_mensagem" class="form-label">Mensagem</label>
-        <textarea name="mensagem_mensagem" id="mensagem_mensagem" cols="30" rows="10" class="form-control"></textarea>
+        <label for="mensagem_corpo" class="form-label">Mensagem</label>
+        <textarea name="mensagem_corpo" id="mensagem_corpo" cols="30" rows="10" class="form-control"></textarea>
       </div>
       <div class="mt-1">
         <label for="mensagem_autor" class="form-label">Autor</label>

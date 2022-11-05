@@ -19,10 +19,10 @@
                         {{ mensagem.titulo }}
                     </div>
                     <div class="col">
-                        {{ mensagem.timestamp }}
+                        {{ mensagem.timestamp|date:"d/m/Y" }}
                     </div>
                     <div class="col">
-                        {{ mensagem.autor }}
+                        <i>{{ mensagem.autor }}</i>
                     </div>
                 </div>
             {% endfor %}

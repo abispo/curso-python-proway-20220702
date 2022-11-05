@@ -1,4 +1,5 @@
 from django.db import models
+from slugify import slugify
 
 
 class Mensagem(models.Model):
@@ -13,3 +14,6 @@ class Mensagem(models.Model):
 
     def __repr__(self):
         return self.__str__
+
+    def slug_titulo(self):
+        return slugify(self.titulo)
