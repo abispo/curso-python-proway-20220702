@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container border border-dark mt-2" style="max-width: 480px">
+    <!-- Se o usuário estiver logado, mostrar a mensagem "Você já está logado!" Senão, mostrar o form -->
+        {% if user.is_authenticated %}
+            <div class="text-warning bg-secondary text-center">
+                VOCÊ JÁ ESTÁ LOGADO!
+            </div>
+        {% else %}
+            <div class="row mt-4">
+                <div class="col align-self-center text-center">
+                    FAÇA SEU CADASTRO
+                </div>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row my-2">
+                    <div class="col">
+                        <input
+                                type="text"
+                                name="txtUsername"
+                                class="form-control"
+                                placeholder="Informe o seu nome de usuário"
+                        >
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <input
+                                type="password"
+                                name="txtPassword"
+                                class="form-control"
+                                placeholder="Informe a sua senha"
+                        >
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <input
+                                type="email"
+                                name="txtEmail"
+                                class="form-control"
+                                placeholder="Informe o seu e-mail"
+                        >
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <input
+                                type="text"
+                                name="txtFirstName"
+                                class="form-control"
+                                placeholder="Informe o seu nome"
+                        >
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <input
+                                type="text"
+                                name="txtLastName"
+                                class="form-control"
+                                placeholder="Informe o seu sobrenome"
+                        >
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col d-flex justify-content-center">
+                        <button class="btn btn-primary" type="submit">Cadastrar</button>
+                    </div>
+                </div>
+            </form>
+
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container border border-dark mt-2" style="max-width: 480px">
+    <!-- Se o usuário estiver logado, mostrar a mensagem "Você já está logado!" Senão, mostrar o form -->
+        {% if user.is_authenticated %}
+            <div class="text-warning bg-secondary text-center">
+                VOCÊ JÁ ESTÁ LOGADO!
+            </div>
+        {% else %}
+            {% if form.errors %}
+                <p>{{ form.errors }}</p>
+            {% endif %}
+            <div class="row mt-4">
+                <div class="col align-self-center text-center">
+                    FAÇA SEU LOGIN
+                </div>
+            </div>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="row my-2">
+                    <div class="col">
+                        <input
+                                type="text"
+                                name="username"
+                                class="form-control"
+                                placeholder="Informe o seu nome de usuário"
+                        >
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Informe a sua senha"
+                        >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <button class="btn btn-primary" type="submit">Enviar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        Não tem cadastro? <span class="ps-1"><a href="{% url 'register:new' %}">Clique aqui!</a></span>
+                    </div>
+                </div>
+            </form>
+
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if not user.is_authenticated %}
+        <h2 class="text-warning text-center">Você não está logado!</h2>
+    {% else %}
+        <h2 class="text-dark text-center">Você está logado como {{ user.username }}.</h2>
+        <hr>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p>
+                    Você tem atualmente <strong>{{ total_num_accounts }}</strong> contas cadastradas.
+        <!--
+            O link irá direcionar para a página de cadastro de conta ('/users/me/accounts/create')
+            Essa rota irá mostrar um página que possui um formulário com 2 campos:
+                - Nome da conta
+                - Saldo Inicial (Terá que aparecer com o valor 0)
+            Haverá um botão de confirmar o cadastro. Os dados estando corretos, o usuário irá ser
+            redirecionado para a página de listagem de contas ('/users/me/accounts')
+            A nova conta deve aparecer nessa listagem
+
+            Se o usuário tiver ao menos uma conta cadastrada, o link vai mudar:
+                - O texto será "Acesse a página de contas"
+                - O link vai direcionar agora para '/users/me/accounts'
+
+        -->
+                    {% if total_num_accounts == 0 %}
+                        <a href="{% url 'users:create_account' %}">Cadastre a primeira</a>
+                    {% else %}
+                        <a href="{% url 'users:list_accounts' %}">Acesse a página de contas</a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p class="mx-1">Você realizou um total de <strong>{{ total_num_transactions }}</strong> transações.</p>
+                {% if total_num_transactions == 0 %}
+                    <a href="{% url 'users:create_transaction' %}">Cadastre a primeira transação</a>
+                {% else %}
+                    <a href="{% url 'users:list_transactions' %}">Vá para a página de listagem de transações</a>
+                {% endif %}
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}

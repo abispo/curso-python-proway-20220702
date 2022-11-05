@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center">Lista de transações</h1>
+<hr>
+
+    {% for transaction in transactions %}
+        <div class="row">
+            <div class="col">
+                ID: {{ transaction.id }}
+            </div>
+            <div class="col">
+                Conta debitada: {{ transaction.debit_account.name }}
+            </div>
+            <div class="col">
+                Conta creditada: {{ transaction.credit_account.name }}
+            </div>
+            <div class="col">
+                Valor da transação: {{ transaction.value }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

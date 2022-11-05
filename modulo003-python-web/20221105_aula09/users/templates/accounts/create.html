@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container border border-dark mt-2" style="max-width: 480px">
+        <div class="row mt-4">
+            <div class="col align-self-center text-center">
+                CADASTRE A SUA CONTA
+            </div>
+        </div>
+        <form action="{% url 'users:create_account' %}" method="POST">
+            {% csrf_token %}
+            <div class="row my-2">
+                <div class="col">
+                    <input
+                            type="text"
+                            name="txtAccountName"
+                            class="form-control"
+                            placeholder="Informe o nome da conta"
+                    >
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col">
+                    <input
+                            type="number"
+                            name="txtInitialBalance"
+                            class="form-control"
+                            placeholder="Informe o saldo inicial da conta"
+                    >
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary" type="submit">Cadastrar</button>
+                </div>
+            </div>
+            </form>
+    </div>
+{% endblock %}
