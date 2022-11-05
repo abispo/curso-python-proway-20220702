@@ -20,4 +20,17 @@
             </div>
         </div>
     {% endfor %}
+
+    <div>
+        <div class="row-mt-3">
+            <div class="col">
+                <a href="{% url 'users:index' %}">Voltar para a página principal</a>
+            </div>
+        </div>
+        <div class="row-mt-3">
+            <div class="col">
+                <a href="{% url 'users:create_transaction' %}">Criar uma nova transação</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
