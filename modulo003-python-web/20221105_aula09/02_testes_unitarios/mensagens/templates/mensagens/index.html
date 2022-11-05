@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row border-bottom border-2">
+            <div class="col">
+              <h1>Lista de mensagens</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <h6><a href="{% url 'mensagens:nova_mensagem' %}">Cadastrar nova mensagem</a></h6>
+            </div>
+        </div>
+        {% if todas_mensagens %}
+            {% for mensagem in todas_mensagens %}
+                <div class="row">
+                    <div class="col">
+                        {{ mensagem.titulo }}
+                    </div>
+                    <div class="col">
+                        {{ mensagem.timestamp }}
+                    </div>
+                    <div class="col">
+                        {{ mensagem.autor }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="row">
+                <div class="col text-warning">
+                    Não há mensagens a serem exibidas.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
