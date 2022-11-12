@@ -1,4 +1,5 @@
 
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
@@ -15,6 +16,8 @@ class TestMensagemViews(TestCase):
         cls.mensagem_amanda = Mensagem(
             titulo="tri", corpo="sem texto", autor="Amanda"
         ).save()
+        User.objects.create_user(username="admin", password="123").save()
+
 
     def test_view_index_disponivel_por_rota(self):
         response = self.client.get('/mensagens/')
@@ -39,9 +42,6 @@ class TestMensagemViews(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_view_nova_mensagem_metodo_post_deve_salvar_nova_mensagem(self):
-        # Caso essa rota fosse protegida (apenas usuários logados pudessem acessá-la),
-        # Teríamos primeiro que fazer o login
-        # self.client.login(username="user", password="secret")
         response = self.client.post(
             reverse("mensagens:nova_mensagem"),
             {
@@ -76,3 +76,27 @@ class TestMensagemViews(TestCase):
         self.assertEqual(mensagem.autor, "Anônimo")
 
         self.assertEqual(response.status_code, 302)
+
+    def test_view_excluir_mensagem_com_sucesso(self):
+
+        Mensagem(
+            titulo="A linguagem PHP", corpo="PHP é ainda muito utilizado", autor="Jose"
+        ).save()
+        mensagem = Mensagem.objects.filter(corpo__startswith="PHP").first()
+        self.client.login(username="admin", password="123")
+
+        response = self.client.get(reverse("mensagens:excluir_mensagem", args=(mensagem.id,)))
+        self.assertTemplateUsed("mensagens/mensagem_excluida.html")
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_excluir_mensagem_erro_404(self):
+        self.client.login(username="admin", password="123")
+        response = self.client.get(reverse("mensagens:excluir_mensagem", args=(1000,)))
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_view_excluir_mensagem_usuario_deslogado_deve_ser_redirecionado_para_o_login(self):
+        response = self.client.get(reverse("mensagens:excluir_mensagem", args=(1000,)))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, "/accounts/login/?next=/mensagens/excluir-mensagem/1000/")

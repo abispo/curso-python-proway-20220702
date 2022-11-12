@@ -36,6 +36,7 @@ def nova_mensagem(request):
 
         return HttpResponseRedirect(reverse('mensagens:index'))
 
+
 @login_required
 def excluir_mensagem(request, pk):
 
