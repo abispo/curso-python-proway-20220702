@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <h2>Cadastro de mensagem</h2>
+      </div>
+    </div>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="mt-4">
+        <label for="mensagem_titulo" class="form-label">Título</label>
+        <input type="text" class="form-control" id="mensagem_titulo" name="mensagem_titulo">
+      </div>
+      <div class="mt-1">
+        <label for="mensagem_corpo" class="form-label">Mensagem</label>
+        <textarea name="mensagem_corpo" id="mensagem_corpo" cols="30" rows="10" class="form-control"></textarea>
+      </div>
+      <div class="mt-1">
+        <label for="mensagem_autor" class="form-label">Autor</label>
+        <input type="text" class="form-control" id="mensagem_autor" name="mensagem_autor">
+      </div>
+      <div class="mt-1">
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
