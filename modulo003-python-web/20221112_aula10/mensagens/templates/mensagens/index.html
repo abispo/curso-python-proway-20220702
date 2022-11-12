@@ -24,6 +24,9 @@
                     <div class="col">
                         <i>{{ mensagem.autor }}</i>
                     </div>
+                    <div class="col">
+                        <p><a href="{% url 'mensagens:excluir_mensagem' mensagem.id %}">Excluir</a></p>
+                    </div>
                 </div>
             {% endfor %}
         {% else %}

@@ -1,5 +1,6 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .models import Mensagem
@@ -34,3 +35,11 @@ def nova_mensagem(request):
         Mensagem(titulo=titulo, corpo=corpo, autor=autor).save()
 
         return HttpResponseRedirect(reverse('mensagens:index'))
+
+@login_required
+def excluir_mensagem(request, pk):
+
+    mensagem = get_object_or_404(Mensagem, pk=pk)
+    mensagem.delete()
+
+    return render(request, "mensagens/mensagem_excluida.html")
