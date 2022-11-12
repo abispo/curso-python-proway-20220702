@@ -39,6 +39,9 @@ class TestMensagemViews(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_view_nova_mensagem_metodo_post_deve_salvar_nova_mensagem(self):
+        # Caso essa rota fosse protegida (apenas usuários logados pudessem acessá-la),
+        # Teríamos primeiro que fazer o login
+        # self.client.login(username="user", password="secret")
         response = self.client.post(
             reverse("mensagens:nova_mensagem"),
             {
